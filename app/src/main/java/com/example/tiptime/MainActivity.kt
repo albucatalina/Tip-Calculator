@@ -19,6 +19,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -36,6 +37,7 @@ import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
@@ -53,6 +55,7 @@ import com.example.tiptime.ui.theme.TipTimeTheme
 import java.text.NumberFormat
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import kotlin.math.roundToInt
@@ -99,6 +102,7 @@ fun TipTimeLayout() {
         )
         EditNumberField(
             label = R.string.bill_amount,
+            leadingIcon = R.drawable.money,
             value = amountInput,
             keyboardOption = KeyboardOptions.Default.copy(
                 keyboardType = KeyboardType.Number,
@@ -111,6 +115,7 @@ fun TipTimeLayout() {
         )
         EditNumberField(
             label = R.string.tip_percentage,
+            leadingIcon = R.drawable.percent,
             value = tipInput,
             onValueChange = {tipInput = it},
             keyboardOption = KeyboardOptions.Default.copy(
@@ -159,6 +164,7 @@ fun RoundTheTipRow(
 @Composable
 fun EditNumberField(
     @StringRes label: Int,
+    @DrawableRes leadingIcon: Int,
     value: String,
     keyboardOption: KeyboardOptions,
     onValueChange: (String) -> Unit,
@@ -167,6 +173,7 @@ fun EditNumberField(
     TextField(
         value = value,
         label = { Text(stringResource(id = label))},
+        leadingIcon = {Icon(painter = painterResource(id = leadingIcon), null)},
         onValueChange = onValueChange,
         singleLine = true,
         keyboardOptions = keyboardOption,
